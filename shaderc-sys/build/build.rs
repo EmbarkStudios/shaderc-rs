@@ -50,6 +50,8 @@ fn build_shaderc_msvc(shaderc_dir: &PathBuf) -> PathBuf {
         .define("SPIRV_WERROR", "OFF")
         .define("SHADERC_SKIP_TESTS", "ON")
         .define("CMAKE_INSTALL_LIBDIR", "lib")
+        .define("CMAKE_C_COMPILER_WORKS", "1")
+        .define("CMAKE_CXX_COMPILER_WORKS", "1")
         .generator("Ninja");
 
     // cmake-rs tries to be clever on Windows by injecting several
@@ -184,14 +186,8 @@ fn main() {
                             println!("cargo:warning=Found and linking system installed Glslang and SPIRV-Tools libraries.");
                             println!("cargo:rustc-link-lib={}=glslang", glslang);
                             println!("cargo:rustc-link-lib={}=SPIRV", spirv);
-                            println!(
-                                "cargo:rustc-link-lib={}=SPIRV-Tools",
-                                spirv_tools
-                            );
-                            println!(
-                                "cargo:rustc-link-lib={}=SPIRV-Tools-opt",
-                                spirv_tools_opt
-                            );
+                            println!("cargo:rustc-link-lib={}=SPIRV-Tools", spirv_tools);
+                            println!("cargo:rustc-link-lib={}=SPIRV-Tools-opt", spirv_tools_opt);
                         }
                         _ => {
                             println!(
