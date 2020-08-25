@@ -47,11 +47,13 @@ fn build_shaderc_msvc(shaderc_dir: &PathBuf) -> PathBuf {
         .profile("Release")
         .define("CMAKE_POSITION_INDEPENDENT_CODE", "ON")
         .define("SPIRV_SKIP_EXECUTABLES", "ON")
+        .define("SPIRV_HEADERS_SKIP_EXAMPLES", "ON")
         .define("SPIRV_WERROR", "OFF")
         .define("SHADERC_SKIP_TESTS", "ON")
         .define("CMAKE_INSTALL_LIBDIR", "lib")
         .define("CMAKE_C_COMPILER_WORKS", "1")
         .define("CMAKE_CXX_COMPILER_WORKS", "1")
+        .define("CMAKE_CROSSCOMPILING", "1")
         .generator("Ninja");
 
     // cmake-rs tries to be clever on Windows by injecting several
